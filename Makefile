@@ -1,7 +1,7 @@
 PACKAGES=$(shell go list ./... | grep -v '/vendor/')
 BUILD_FLAGS = -ldflags "-X github.com/svaishnavy/cosmos-zone/version.GitCommit=`git rev-parse --short HEAD`"
 
-all: get_tools get_vendor_deps build test
+all: get_tools get_vendor_deps build test install
 
 get_tools:
 	go get github.com/golang/dep/cmd/dep
@@ -18,6 +18,9 @@ test:
 
 benchmark:
 	@go test -bench=. $(PACKAGES)
+
+install:
+	go install github.com/svaishnavy/cosmos-zone
 
 .PHONY: all build test benchmark
 
