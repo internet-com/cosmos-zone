@@ -11,9 +11,9 @@ func init() {
 }
 
 var versionCmd = &cobra.Command{
-  Use:   "init <YourAwesomeProject>",
-  Short: "Initialize your awesome cosmos-sdk zone!", 
+  Use:   "init AwesomeProjectName [flags]",
+  Short: "Initialize your awesome cosmos-sdk zone", 
   Run: func(cmd *cobra.Command, args []string) {
-    fmt.Println("Initialized a new project!")
+    fmt.Println("Initialized a new project, happy hacking!")
   },
 }
