@@ -28,6 +28,10 @@
   name = "github.com/spf13/cobra"
   version = "0.0.2"
 
+[[constraint]]
+  name = "github.com/gobuffalo/packr"
+  version = "1.11.1"
+
 [prune]
   go-tests = true
   unused-packages = true

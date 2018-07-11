@@ -93,7 +93,7 @@ func MakeCodec() *wire.Codec {
 		struct{ sdk.Msg }{},
 		oldwire.ConcreteType{bank.SendMsg{}, msgTypeSend},
 		oldwire.ConcreteType{bank.IssueMsg{}, msgTypeIssue},
-		oldwire.ConcreteType{_PROJECT_SHORT_NAME_.Sample_CAPITALIZED_PROJECT_SHORT_NAME_Message{}, msgTypeSample}
+		oldwire.ConcreteType{_PROJECT_SHORT_NAME_.Sample_CAPITALIZED_PROJECT_SHORT_NAME_Message{}, msgTypeSample},
 	)
 
 	const accTypeApp = 0x1
