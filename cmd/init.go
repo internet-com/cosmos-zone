@@ -59,10 +59,10 @@ var initCmd = &cobra.Command{
 			fmt.Println("Creating file: " + actualPath)
 			contents := box.String(path)
 			contents = replacer.Replace(contents)
-			lastIndex := strings.LastIndex(path, string(os.PathSeparator))
+			lastIndex := strings.LastIndex(actualPath, string(os.PathSeparator))
 			rootDir := ""
 			if lastIndex != -1 {
-				rootDir = path[0:lastIndex]
+				rootDir = actualPath[0:lastIndex]
 			}
 			// Create directory
 			os.MkdirAll(projectPath+string(os.PathSeparator)+rootDir, os.ModePerm)
