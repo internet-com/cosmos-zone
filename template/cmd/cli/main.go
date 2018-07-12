@@ -20,7 +20,7 @@ import (
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/commands"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/commands"
 
-	"_REMOTE_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/app"
+	"_REMOTE_PROJECT_PATH_/app"
 	"_REMOTE_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/types"
 )
 
