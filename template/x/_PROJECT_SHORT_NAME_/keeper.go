@@ -18,6 +18,10 @@ func NewKeeper(key sdk.StoreKey, bankKeeper bank.CoinKeeper) Keeper {
 	return Keeper{ck: bankKeeper, storeKey: key}
 }
 
+func (k Keeper) DeductFee(fee Fee) {
+	// TODO: Subtract fee from the total available coins
+}
+
 // InitGenesis - store the genesis trend
 func (k Keeper) InitGenesis(ctx sdk.Context, data json.RawMessage) error {
 	var state GenesisState

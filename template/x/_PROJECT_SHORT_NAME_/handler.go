@@ -21,6 +21,7 @@ func NewHandler(k Keeper) sdk.Handler {
 
 func handleSample_CAPITALIZED_PROJECT_SHORT_NAME_Message(ctx sdk.Context, k Keeper, msg Sample_CAPITALIZED_PROJECT_SHORT_NAME_Message) sdk.Result {
 	// Process the message here.
+	k.DeductFee(msg.Fee)
 	return sdk.Result{
 		Code: sdk.CodeOK,
 	}

@@ -15,8 +15,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 
-	"_GITHUB_PROJECT_PATH_/types"
-	"_GITHUB_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_"
+	"_REMOTE_PROJECT_PATH_/types"
+	"_REMOTE_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_"
 )
 
 const (
@@ -63,8 +63,8 @@ func New_CAPITALIZED_PROJECT_SHORT_NAME_App(logger log.Logger, dbs map[string]db
 		//AddRoute("cool", cool.NewHandler(coolKeeper)).
 		AddRoute("_PROJECT_SHORT_NAME_", _PROJECT_SHORT_NAME_.NewHandler(_PROJECT_SHORT_NAME_Keeper)).
 
-	// Define the feeHandler.
-	app.feeHandler = auth.BurnFeeHandler
+		// Define the feeHandler.
+		app.feeHandler = auth.BurnFeeHandler
 
 	// initialize BaseApp
 	app.SetTxDecoder(app.txDecoder)

@@ -12,7 +12,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/wire"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/commands"
 
-	"_GITHUB_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_"
+	"_REMOTE_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_"
 )
 
 // take the coolness quiz transaction

@@ -12,7 +12,7 @@ import (
 	dbm "github.com/tendermint/tmlibs/db"
 	"github.com/tendermint/tmlibs/log"
 
-	"_GITHUB_PROJECT_PATH_/app"
+	"_REMOTE_PROJECT_PATH_/app"
 
 	"github.com/cosmos/cosmos-sdk/server"
 	sdk "github.com/cosmos/cosmos-sdk/types"

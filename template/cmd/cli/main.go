@@ -14,14 +14,14 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
-	_PROJECT_SHORT_NAME_cmd "_GITHUB_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/commands"
+	_PROJECT_SHORT_NAME_cmd "_REMOTE_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/commands"
 
 	"github.com/cosmos/cosmos-sdk/version"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/commands"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/commands"
 
-	"_GITHUB_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/app"
-	"_GITHUB_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/types"
+	"_REMOTE_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/app"
+	"_REMOTE_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/types"
 )
 
 // gaiacliCmd is the entry point for this binary
