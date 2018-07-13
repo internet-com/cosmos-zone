@@ -19,10 +19,12 @@ This will install a binary cosmos-zone
 
 This will initialize a project, the dependencies, directory structures with the specified project name.
 
-Example:
+### Example:
+```shell
 cosmos-zone init democoin
-This will ask for a remote path for the project - usually github.com/your_user_name/democoin
-Will create a new democoin application under $GOPATH/src/github.com/your_user_name/democoin
+```
+
+This will ask for a remote path for the project - usually github.com/your_user_name/democoin and will create a new democoin application under $GOPATH/src/github.com/your_user_name/democoin
 
 # TODO
 1. Provide release build for cosmos-zone tool so new users need not run make.
