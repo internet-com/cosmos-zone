@@ -34,3 +34,4 @@ This will create two binaries(testzonecli and testzoned) under bin folder. testz
 
 # TODO
 1. Provide release binaries for cosmos-zone tool so it's easy for new users to get started.
+2. Add --bare option, so only the top level app will be created without all the extensions.
