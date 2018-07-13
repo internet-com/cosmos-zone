@@ -33,4 +33,4 @@ make
 This will create two binaries(testzonecli and testzoned) under bin folder. testzoned is the full node of the application which you can run, and testzonecli is your light client.
 
 # TODO
-1. Provide release build for cosmos-zone tool so new users need not run make.
+1. Provide release binaries for cosmos-zone tool so new users need not download and run make.
