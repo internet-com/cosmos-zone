@@ -1,4 +1,4 @@
-PACKAGES=$(shell go list ./... | grep -v '/vendor/' | grep -v '/template/')
+PACKAGES=$(shell go list ./... | grep -v 'vendor/' | grep -v 'template/')
 BUILD_FLAGS = -ldflags "-X github.com/svaishnavy/cosmos-zone/version.GitCommit=`git rev-parse --short HEAD`"
 
 all: get_tools get_vendor_deps pack pack_clean test install
