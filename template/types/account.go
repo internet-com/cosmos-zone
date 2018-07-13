@@ -5,8 +5,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/wire"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 
-	"github.com/svaishnavy/testzone/x/cool"
-	"github.com/svaishnavy/testzone/x/pow"
+	"_REMOTE_PROJECT_PATH_/x/cool"
+	"_REMOTE_PROJECT_PATH_/x/pow"
 )
 
 var _ auth.Account = (*AppAccount)(nil)

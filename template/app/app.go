@@ -16,11 +16,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/ibc"
 
-	"github.com/svaishnavy/testzone/types"
-	"github.com/svaishnavy/testzone/x/cool"
-	"github.com/svaishnavy/testzone/x/pow"
-	"github.com/svaishnavy/testzone/x/simplestake"
-	"github.com/svaishnavy/testzone/x/sketchy"
+	"_REMOTE_PROJECT_PATH_/types"
+	"_REMOTE_PROJECT_PATH_/x/cool"
+	"_REMOTE_PROJECT_PATH_/x/pow"
+	"_REMOTE_PROJECT_PATH_/x/simplestake"
+	"_REMOTE_PROJECT_PATH_/x/sketchy"
 )
 
 const (

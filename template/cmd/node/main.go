@@ -14,7 +14,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/wire"
-	"github.com/svaishnavy/testzone/app"
+	"_REMOTE_PROJECT_PATH_/app"
 )
 
 // init parameters
@@ -64,17 +64,17 @@ func main() {
 	ctx := server.NewDefaultContext()
 
 	rootCmd := &cobra.Command{
-		Use:               "democoind",
-		Short:             "Democoin Daemon (server)",
+		Use:               "_PROJECT_SHORT_NAME_d",
+		Short:             "_CAPITALIZED_PROJECT_SHORT_NAME_ Daemon (server)",
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
 
 	server.AddCommands(ctx, cdc, rootCmd, CoolAppInit,
-		server.ConstructAppCreator(newApp, "democoin"),
-		server.ConstructAppExporter(exportAppStateAndTMValidators, "democoin"))
+		server.ConstructAppCreator(newApp, "_PROJECT_SHORT_NAME_"),
+		server.ConstructAppExporter(exportAppStateAndTMValidators, "_PROJECT_SHORT_NAME_"))
 
 	// prepare and add flags
-	rootDir := os.ExpandEnv("$HOME/.democoind")
+	rootDir := os.ExpandEnv("$HOME/._PROJECT_SHORT_NAME_d")
 	executor := cli.PrepareBaseCmd(rootCmd, "BC", rootDir)
 	err := executor.Execute()
 	if err != nil {

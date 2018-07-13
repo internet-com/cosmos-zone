@@ -18,18 +18,18 @@ import (
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	ibccmd "github.com/cosmos/cosmos-sdk/x/ibc/client/cli"
 
-	"github.com/svaishnavy/testzone/app"
-	"github.com/svaishnavy/testzone/types"
-	coolcmd "github.com/svaishnavy/testzone/x/cool/client/cli"
-	powcmd "github.com/svaishnavy/testzone/x/pow/client/cli"
-	simplestakingcmd "github.com/svaishnavy/testzone/x/simplestake/client/cli"
+	"_REMOTE_PROJECT_PATH_/app"
+	"_REMOTE_PROJECT_PATH_/types"
+	coolcmd "_REMOTE_PROJECT_PATH_/x/cool/client/cli"
+	powcmd "_REMOTE_PROJECT_PATH_/x/pow/client/cli"
+	simplestakingcmd "_REMOTE_PROJECT_PATH_/x/simplestake/client/cli"
 )
 
 // rootCmd is the entry point for this binary
 var (
 	rootCmd = &cobra.Command{
-		Use:   "democli",
-		Short: "Democoin light-client",
+		Use:   "_PROJECT_SHORT_NAME_cli",
+		Short: "_CAPITALIZED_PROJECT_SHORT_NAME_ light-client",
 	}
 )
 
@@ -91,7 +91,7 @@ func main() {
 	)
 
 	// prepare and add flags
-	executor := cli.PrepareMainCmd(rootCmd, "BC", os.ExpandEnv("$HOME/.democli"))
+	executor := cli.PrepareMainCmd(rootCmd, "BC", os.ExpandEnv("$HOME/._PROJECT_SHORT_NAME_cli"))
 	err := executor.Execute()
 	if err != nil {
 		// handle with #870

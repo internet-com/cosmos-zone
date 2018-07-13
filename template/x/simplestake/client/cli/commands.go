@@ -14,7 +14,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/wire"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 
-	"github.com/svaishnavy/testzone/x/simplestake"
+	"_REMOTE_PROJECT_PATH_/x/simplestake"
 )
 
 const (
