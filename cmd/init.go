@@ -70,7 +70,7 @@ var initCmd = &cobra.Command{
 			ioutil.WriteFile(filePath, []byte(contents), os.ModePerm)
 			return nil
 		})
-		fmt.Println("Initialized a new project, happy hacking!")
+		fmt.Println("Initialized a new project at " + projectPath + "happy hacking!")
 		return nil
 	},
 }
