@@ -5,9 +5,11 @@ Create a new blockchain project based on cosmos-sdk with a single command.
 
 # Installation
 
+```shell
 go get github.com/svaishnavy/cosmos-zone
 cd $GOPATH/src/github.com/svaishnavy/cosmos-zone
 make
+```
 
 This will install a binary cosmos-zone
 
