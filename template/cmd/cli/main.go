@@ -1,12 +1,11 @@
 package main
 
 import (
-	"errors"
 	"os"
 
 	"github.com/spf13/cobra"
 
-	"github.com/tendermint/tmlibs/cli"
+	"github.com/tendermint/tendermint/libs/cli"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/keys"
@@ -14,27 +13,25 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
-	_PROJECT_SHORT_NAME_cmd "_REMOTE_PROJECT_PATH_/x/_PROJECT_SHORT_NAME_/commands"
-
 	"github.com/cosmos/cosmos-sdk/version"
-	authcmd "github.com/cosmos/cosmos-sdk/x/auth/commands"
-	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/commands"
+	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
+	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
+	ibccmd "github.com/cosmos/cosmos-sdk/x/ibc/client/cli"
 
-	"_REMOTE_PROJECT_PATH_/app"
-	"_REMOTE_PROJECT_PATH_/types"
+	"github.com/svaishnavy/testzone/app"
+	"github.com/svaishnavy/testzone/types"
+	coolcmd "github.com/svaishnavy/testzone/x/cool/client/cli"
+	powcmd "github.com/svaishnavy/testzone/x/pow/client/cli"
+	simplestakingcmd "github.com/svaishnavy/testzone/x/simplestake/client/cli"
 )
 
-// gaiacliCmd is the entry point for this binary
+// rootCmd is the entry point for this binary
 var (
-	_PROJECT_SHORT_NAME_clicmd = &cobra.Command{
-		Use:   "_PROJECT_SHORT_NAME_cli",
-		Short: "_PROJECT_SHORT_NAME_ light-client",
+	rootCmd = &cobra.Command{
+		Use:   "democli",
+		Short: "Democoin light-client",
 	}
 )
-
-func todoNotImplemented(_ *cobra.Command, _ []string) error {
-	return errors.New("TODO: Command not yet implemented")
-}
 
 func main() {
 	// disable sorting
@@ -43,27 +40,49 @@ func main() {
 	// get the codec
 	cdc := app.MakeCodec()
 
-	rpc.AddCommands(_PROJECT_SHORT_NAME_clicmd)
-	_PROJECT_SHORT_NAME_clicmd.AddCommand(client.LineBreak)
-	tx.AddCommands(_PROJECT_SHORT_NAME_clicmd, cdc)
-	_PROJECT_SHORT_NAME_clicmd.AddCommand(client.LineBreak)
+	// TODO: setup keybase, viper object, etc. to be passed into
+	// the below functions and eliminate global vars, like we do
+	// with the cdc
+
+	// add standard rpc, and tx commands
+	rpc.AddCommands(rootCmd)
+	rootCmd.AddCommand(client.LineBreak)
+	tx.AddCommands(rootCmd, cdc)
+	rootCmd.AddCommand(client.LineBreak)
 
 	// add query/post commands (custom to binary)
-	_PROJECT_SHORT_NAME_clicmd.AddCommand(
+	// start with commands common to basecoin
+	rootCmd.AddCommand(
 		client.GetCommands(
-			authcmd.GetAccountCmd("main", cdc, types.GetAccountDecoder(cdc)),
+			authcmd.GetAccountCmd("acc", cdc, types.GetAccountDecoder(cdc)),
 		)...)
-	_PROJECT_SHORT_NAME_clicmd.AddCommand(
+	rootCmd.AddCommand(
 		client.PostCommands(
 			bankcmd.SendTxCmd(cdc),
 		)...)
-	_PROJECT_SHORT_NAME_clicmd.AddCommand(
+	rootCmd.AddCommand(
 		client.PostCommands(
-			_PROJECT_SHORT_NAME_cmd.Sample_CAPITALIZED_PROJECT_SHORT_NAME_Command(cdc),
+			ibccmd.IBCTransferCmd(cdc),
+		)...)
+	rootCmd.AddCommand(
+		client.PostCommands(
+			ibccmd.IBCRelayCmd(cdc),
+			simplestakingcmd.BondTxCmd(cdc),
+		)...)
+	rootCmd.AddCommand(
+		client.PostCommands(
+			simplestakingcmd.UnbondTxCmd(cdc),
+		)...)
+	// and now democoin specific commands
+	rootCmd.AddCommand(
+		client.PostCommands(
+			coolcmd.QuizTxCmd(cdc),
+			coolcmd.SetTrendTxCmd(cdc),
+			powcmd.MineCmd(cdc),
 		)...)
 
 	// add proxy, version and key info
-	_PROJECT_SHORT_NAME_clicmd.AddCommand(
+	rootCmd.AddCommand(
 		client.LineBreak,
 		lcd.ServeCommand(cdc),
 		keys.Commands(),
@@ -72,6 +91,10 @@ func main() {
 	)
 
 	// prepare and add flags
-	executor := cli.PrepareMainCmd(_PROJECT_SHORT_NAME_clicmd, "BC", os.ExpandEnv("$HOME/._PROJECT_SHORT_NAME_cli"))
-	executor.Execute()
+	executor := cli.PrepareMainCmd(rootCmd, "BC", os.ExpandEnv("$HOME/.democli"))
+	err := executor.Execute()
+	if err != nil {
+		// handle with #870
+		panic(err)
+	}
 }

@@ -3,70 +3,82 @@ package main
 import (
 	"encoding/json"
 	"os"
-	"path/filepath"
 
 	"github.com/spf13/cobra"
 
-	abci "github.com/tendermint/abci/types"
-	"github.com/tendermint/tmlibs/cli"
-	dbm "github.com/tendermint/tmlibs/db"
-	"github.com/tendermint/tmlibs/log"
-
-	"_REMOTE_PROJECT_PATH_/app"
+	abci "github.com/tendermint/tendermint/abci/types"
+	"github.com/tendermint/tendermint/libs/cli"
+	dbm "github.com/tendermint/tendermint/libs/db"
+	"github.com/tendermint/tendermint/libs/log"
+	tmtypes "github.com/tendermint/tendermint/types"
 
 	"github.com/cosmos/cosmos-sdk/server"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/wire"
+	"github.com/svaishnavy/testzone/app"
 )
 
-// democoindCmd is the entry point for this binary
-var (
-	context                 = server.NewDefaultContext()
-	_PROJECT_SHORT_NAME_Cmd = &cobra.Command{
-		Use:               "_PROJECT_SHORT_NAME_",
-		Short:             "_CAPITALIZED_PROJECT_NAME_ Daemon (server)",
-		PersistentPreRunE: server.PersistentPreRunEFn(context),
-	}
-)
-
-// defaultAppState sets up the app_state for the
-// default genesis file
-func defaultAppState(args []string, addr sdk.Address, coinDenom string) (json.RawMessage, error) {
-	baseJSON, err := server.DefaultGenAppState(args, addr, coinDenom)
-	if err != nil {
-		return nil, err
-	}
-	var jsonMap map[string]json.RawMessage
-	err = json.Unmarshal(baseJSON, &jsonMap)
-	if err != nil {
-		return nil, err
-	}
-	bz, err := json.Marshal(jsonMap)
-	return json.RawMessage(bz), err
+// init parameters
+var CoolAppInit = server.AppInit{
+	AppGenState: CoolAppGenState,
+	AppGenTx:    server.SimpleAppGenTx,
 }
 
-func generateApp(rootDir string, logger log.Logger) (abci.Application, error) {
-	dbMain, err := dbm.NewGoLevelDB("_PROJECT_SHORT_NAME_", filepath.Join(rootDir, "data"))
+// coolGenAppParams sets up the app_state and appends the cool app state
+func CoolAppGenState(cdc *wire.Codec, appGenTxs []json.RawMessage) (appState json.RawMessage, err error) {
+	appState, err = server.SimpleAppGenState(cdc, appGenTxs)
 	if err != nil {
-		return nil, err
+		return
 	}
-	dbAcc, err := dbm.NewGoLevelDB("_PROJECT_SHORT_NAME_-acc", filepath.Join(rootDir, "data"))
+
+	key := "cool"
+	value := json.RawMessage(`{
+        "trend": "ice-cold"
+      }`)
+
+	appState, err = server.InsertKeyJSON(cdc, appState, key, value)
 	if err != nil {
-		return nil, err
+		return
 	}
-	dbs := map[string]dbm.DB{
-		"main": dbMain,
-		"acc":  dbAcc,
-	}
-	bapp := app.New_CAPITALIZED_PROJECT_SHORT_NAME_App(logger, dbs)
-	return bapp, nil
+
+	key = "pow"
+	value = json.RawMessage(`{
+        "difficulty": "1",
+        "count": "0"
+      }`)
+
+	appState, err = server.InsertKeyJSON(cdc, appState, key, value)
+	return
+}
+
+func newApp(logger log.Logger, db dbm.DB) abci.Application {
+	return app.NewDemocoinApp(logger, db)
+}
+
+func exportAppStateAndTMValidators(logger log.Logger, db dbm.DB) (json.RawMessage, []tmtypes.GenesisValidator, error) {
+	dapp := app.NewDemocoinApp(logger, db)
+	return dapp.ExportAppStateAndValidators()
 }
 
 func main() {
+	cdc := app.MakeCodec()
+	ctx := server.NewDefaultContext()
 
-	server.AddCommands(_PROJECT_SHORT_NAME_Cmd, defaultAppState, generateApp, context)
+	rootCmd := &cobra.Command{
+		Use:               "democoind",
+		Short:             "Democoin Daemon (server)",
+		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
+	}
+
+	server.AddCommands(ctx, cdc, rootCmd, CoolAppInit,
+		server.ConstructAppCreator(newApp, "democoin"),
+		server.ConstructAppExporter(exportAppStateAndTMValidators, "democoin"))
 
 	// prepare and add flags
-	rootDir := os.ExpandEnv("$HOME/._PROJECT_SHORT_NAME_")
-	executor := cli.PrepareBaseCmd(_PROJECT_SHORT_NAME_Cmd, "BC", rootDir)
-	executor.Execute()
+	rootDir := os.ExpandEnv("$HOME/.democoind")
+	executor := cli.PrepareBaseCmd(rootCmd, "BC", rootDir)
+	err := executor.Execute()
+	if err != nil {
+		// handle with #870
+		panic(err)
+	}
 }
