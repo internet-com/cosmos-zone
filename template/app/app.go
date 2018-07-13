@@ -24,11 +24,11 @@ import (
 )
 
 const (
-	appName = "DemocoinApp"
+	appName = "_CAPITALIZED_PROJECT_SHORT_NAME_App"
 )
 
 // Extended ABCI application
-type DemocoinApp struct {
+type _CAPITALIZED_PROJECT_SHORT_NAME_App struct {
 	*bam.BaseApp
 	cdc *wire.Codec
 
@@ -51,13 +51,13 @@ type DemocoinApp struct {
 	accountMapper auth.AccountMapper
 }
 
-func NewDemocoinApp(logger log.Logger, db dbm.DB) *DemocoinApp {
+func New_CAPITALIZED_PROJECT_SHORT_NAME_App(logger log.Logger, db dbm.DB) *_CAPITALIZED_PROJECT_SHORT_NAME_App {
 
 	// Create app-level codec for txs and accounts.
 	var cdc = MakeCodec()
 
 	// Create your application object.
-	var app = &DemocoinApp{
+	var app = &_CAPITALIZED_PROJECT_SHORT_NAME_App{
 		BaseApp:            bam.NewBaseApp(appName, cdc, logger, db),
 		cdc:                cdc,
 		capKeyMainStore:    sdk.NewKVStoreKey("main"),
@@ -112,16 +112,16 @@ func MakeCodec() *wire.Codec {
 
 	// Register AppAccount
 	cdc.RegisterInterface((*auth.Account)(nil), nil)
-	cdc.RegisterConcrete(&types.AppAccount{}, "democoin/Account", nil)
+	cdc.RegisterConcrete(&types.AppAccount{}, "_PROJECT_SHORT_NAME_/Account", nil)
 
 	cdc.Seal()
 
 	return cdc
 }
 
-// custom logic for democoin initialization
+// custom logic for _PROJECT_SHORT_NAME_ initialization
 // nolint: unparam
-func (app *DemocoinApp) initChainerFn(coolKeeper cool.Keeper, powKeeper pow.Keeper) sdk.InitChainer {
+func (app *_CAPITALIZED_PROJECT_SHORT_NAME_App) initChainerFn(coolKeeper cool.Keeper, powKeeper pow.Keeper) sdk.InitChainer {
 	return func(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 		stateJSON := req.AppStateBytes
 
@@ -159,7 +159,7 @@ func (app *DemocoinApp) initChainerFn(coolKeeper cool.Keeper, powKeeper pow.Keep
 }
 
 // Custom logic for state export
-func (app *DemocoinApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+func (app *_CAPITALIZED_PROJECT_SHORT_NAME_App) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
 
 	// iterate to get the accounts

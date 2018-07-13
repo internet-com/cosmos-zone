@@ -73,7 +73,7 @@ func main() {
 		client.PostCommands(
 			simplestakingcmd.UnbondTxCmd(cdc),
 		)...)
-	// and now democoin specific commands
+	// and now _PROJECT_SHORT_NAME_ specific commands
 	rootCmd.AddCommand(
 		client.PostCommands(
 			coolcmd.QuizTxCmd(cdc),

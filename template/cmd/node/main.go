@@ -12,9 +12,10 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmtypes "github.com/tendermint/tendermint/types"
 
+	"_REMOTE_PROJECT_PATH_/app"
+
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/wire"
-	"_REMOTE_PROJECT_PATH_/app"
 )
 
 // init parameters
@@ -51,11 +52,11 @@ func CoolAppGenState(cdc *wire.Codec, appGenTxs []json.RawMessage) (appState jso
 }
 
 func newApp(logger log.Logger, db dbm.DB) abci.Application {
-	return app.NewDemocoinApp(logger, db)
+	return app.New_CAPITALIZED_PROJECT_SHORT_NAME_App(logger, db)
 }
 
 func exportAppStateAndTMValidators(logger log.Logger, db dbm.DB) (json.RawMessage, []tmtypes.GenesisValidator, error) {
-	dapp := app.NewDemocoinApp(logger, db)
+	dapp := app.New_CAPITALIZED_PROJECT_SHORT_NAME_App(logger, db)
 	return dapp.ExportAppStateAndValidators()
 }
 
