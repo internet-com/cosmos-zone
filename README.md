@@ -21,10 +21,16 @@ This will initialize a project, the dependencies, directory structures with the 
 
 ### Example:
 ```shell
-cosmos-zone init democoin
+cosmos-zone init testzone
 ```
 
-This will ask for a remote path for the project - usually github.com/your_user_name/democoin and will create a new democoin application under $GOPATH/src/github.com/your_user_name/democoin
+This will ask for a remote path for the project - usually github.com/your_user_name/testzone and will create a new testzone application under $GOPATH/src/github.com/your_user_name/testzone along with Makefile
+
+```shell
+cd $GOPATH/src/github.com/your_user_name/testzone
+make
+```
+This will create two binaries(testzonecli and testzoned) under bin folder. testzoned is the full node of the application which you can run, and testzonecli is your light client.
 
 # TODO
 1. Provide release build for cosmos-zone tool so new users need not run make.
